@@ -1,3 +1,5 @@
+package login;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -44,8 +46,14 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame() {
+		setResizable(false);
+		setTitle("Kadamm");
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(700, 600);
+		setLocationRelativeTo(null);
+		Image img = new ImageIcon(this.getClass().getResource("/icon_login.png")).getImage();
+		setIconImage(img);
 		// setBounds(100, 100, 429, 325);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -55,7 +63,7 @@ public class LoginFrame extends JFrame {
 		// Label with image
 		JLabel loginImgLabel = new JLabel("");
 		loginImgLabel.setBackground(Color.WHITE);
-		Image img = new ImageIcon(this.getClass().getResource("/icon_login.png")).getImage();
+
 		loginImgLabel.setIcon(new ImageIcon(img.getScaledInstance(228, 211, DO_NOTHING_ON_CLOSE)));
 
 		JLabel loginLabel = new JLabel("KADAMM LOGIN");
