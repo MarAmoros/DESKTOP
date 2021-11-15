@@ -8,23 +8,22 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import bbdd.entity.User;
+import bbdd.entity.Participant;
 import bbdd.util.HibernateUtil;
 
-public class UserDao {
+public class ParticipantDao {
 
-	public void saveUser(User user) {
+	public void saveParticipant(Participant participant) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
 			// operation 1
-
-			Object object = session.save(user);
+			Object object = session.save(participant);
 
 			// operation 2
-			session.get(User.class, (Serializable) object);
+			session.get(Participant.class, (Serializable) object);
 
 			// commit transaction
 			transaction.commit();
@@ -36,17 +35,17 @@ public class UserDao {
 		}
 	}
 
-	public void updateUser(User User) {
+	public void updateParticipant(Participant participant) {
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
 			// save the User object
-			String hql = "UPDATE User set Name = :Name " + "WHERE Id = :UserId";
+			String hql = "UPDATE Participant set Alias = :Alias " + "WHERE Id = :ParticipantId";
 			Query query = session.createQuery(hql);
-			query.setParameter("Name", User.getName());
-			query.setParameter("UserId", 1);
+			query.setParameter("UserId", participant.getId());
+			query.setParameter("New Alias", participant.getAlias());
 			int result = query.executeUpdate();
 			System.out.println("Rows affected: " + result);
 
@@ -60,7 +59,7 @@ public class UserDao {
 		}
 	}
 
-	public void deleteUser(int Id) {
+	public void deleteParticipant(int Id) {
 
 		Transaction transaction = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -68,11 +67,11 @@ public class UserDao {
 			transaction = session.beginTransaction();
 
 			// Delete a User object
-			User User = session.get(User.class, Id);
-			if (User != null) {
-				String hql = "DELETE FROM User " + "WHERE Id = :UserId";
+			Participant participant = session.get(Participant.class, Id);
+			if (participant != null) {
+				String hql = "DELETE FROM Participant " + "WHERE Id = :ParticipantId";
 				Query query = session.createQuery(hql);
-				query.setParameter("UserId", Id);
+				query.setParameter("ParticipantId", Id);
 				int result = query.executeUpdate();
 				System.out.println("Rows affected: " + result);
 			}
@@ -87,22 +86,22 @@ public class UserDao {
 		}
 	}
 
-	public User getUser(int Id) {
+	public Participant getParticipant(int Id) {
 
 		Transaction transaction = null;
-		User User = null;
+		Participant participant = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			// start a transaction
 			transaction = session.beginTransaction();
 
 			// get an User object
-			String hql = " FROM User S WHERE S.Id = :UserId";
+			String hql = " FROM Participant S WHERE S.Id = :ParticipantId";
 			Query query = session.createQuery(hql);
-			query.setParameter("UserId", Id);
+			query.setParameter("ParticipantId", Id);
 			List results = query.getResultList();
 
 			if (results != null && !results.isEmpty()) {
-				User = (User) results.get(0);
+				participant = (Participant) results.get(0);
 			}
 			// commit transaction
 			transaction.commit();
@@ -112,12 +111,12 @@ public class UserDao {
 			}
 			e.printStackTrace();
 		}
-		return User;
+		return participant;
 	}
 
-	public List<User> getUsers() {
+	public List<Participant> getParticipants() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			return session.createQuery("from User", User.class).list();
+			return session.createQuery("from Participant", Participant.class).list();
 		}
 	}
 }

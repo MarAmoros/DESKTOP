@@ -8,6 +8,12 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
+import bbdd.entity.Admin;
+import bbdd.entity.Answers;
+import bbdd.entity.Contest;
+import bbdd.entity.Kahoot;
+import bbdd.entity.Participant;
+import bbdd.entity.Questions;
 import bbdd.entity.User;
 
 public class HibernateUtil {
@@ -37,7 +43,13 @@ public class HibernateUtil {
 
 				// configuration.addAnnotatedClass(Table1.class);
 
+				configuration.addAnnotatedClass(Admin.class);
 				configuration.addAnnotatedClass(User.class);
+				configuration.addAnnotatedClass(Contest.class);
+				configuration.addAnnotatedClass(Participant.class);
+				configuration.addAnnotatedClass(Kahoot.class);
+				configuration.addAnnotatedClass(Questions.class);
+				configuration.addAnnotatedClass(Answers.class);
 
 				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
