@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -68,6 +70,13 @@ public class KadammExplorer extends JFrame {
 		createKahootButton.setBackground(new Color(102, 0, 204));
 		createKahootButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		createKahootButton.setForeground(new Color(255, 255, 255));
+		createKahootButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				createNewKadmm();
+			}
+		});
+
 
 		JButton btnNewButton_2_1 = new JButton("Filter topics");
 		btnNewButton_2_1.setBackground(new Color(102, 0, 204));
@@ -176,4 +185,11 @@ public class KadammExplorer extends JFrame {
 		scrollPane.setViewportView(kahootsTextArea);
 		contentPane.setLayout(gl_contentPane);
 	}
+	
+	private void createNewKadmm() {
+		dispose();
+		CreateNewKadamm createNewKadammFrame = new CreateNewKadamm();
+		createNewKadammFrame.setVisible(true);
+	}
+
 }
