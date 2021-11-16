@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Kahoot>
+	<Preguntas>
+		<Idioma>Español</Idioma>
+		<Tipo>ola</Tipo>
+		<Countdown>5</Countdown>
+		<Timeout>30</Timeout>
+		<MaxPreguntas>15</MaxPreguntas>
+		<Ruta>"C:\MatadmePorfavor"</Ruta>
+	</Preguntas>
+</Kahoot>

@@ -1,6 +1,7 @@
 package login;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -20,8 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import bbdd.dao.UserDao;
-import bbdd.entity.User;
+import bbdd.dao.AdminDao;
+import bbdd.entity.Admin;
 import exceptions.ErrorHandler;
 import kadammScreens.KadammExplorer;
 
@@ -34,18 +35,18 @@ public class LoginFrame extends JFrame {
 //	/**
 //	 * Launch the application.
 //	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					LoginFrame frame = new LoginFrame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginFrame frame = new LoginFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
@@ -143,11 +144,13 @@ public class LoginFrame extends JFrame {
 	// Checks user and password when logging in, if correct to kahoot explorer if
 	// false shows an error message
 	private void logInCheckIfCorrect() {
-		UserDao userDao = new UserDao();
-		User admin = null;
+		AdminDao userDao = new AdminDao();
+		Admin admin = null;
 		try {
-			admin = userDao.getUsers().stream().filter(user -> passwordField.getText().equals(user.getPassword())
-					&& usernameField.getText().equals(user.getName())).findAny().get();
+			admin = userDao.getAdmins().stream()
+					.filter(adminTemp -> passwordField.getText().equals(adminTemp.getPassword())
+							&& usernameField.getText().equals(adminTemp.getName()))
+					.findAny().get();
 		} catch (NoSuchElementException e2) {
 			ErrorHandler noSuchElement = new ErrorHandler("LOGIN FAILURE ",
 					"The username or password is incorrect. Please try again");
