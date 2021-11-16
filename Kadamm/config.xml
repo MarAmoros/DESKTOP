@@ -3,6 +3,7 @@
 	<Preguntas>
 		<Idioma>Español</Idioma>
 		<Tipo>ola</Tipo>
+		<Countdown>5</Countdown>
 		<Timeout>30</Timeout>
 		<MaxPreguntas>15</MaxPreguntas>
 		<Ruta>"C:\MatadmePorfavor"</Ruta>
