@@ -1,10 +1,17 @@
 package bbdd.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,19 +21,32 @@ public class Contest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	private int id;
+	private long id;
 
-	@Column(name = "KahootId") // one to many
-	private int kahootId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "KahootId", nullable = false)
+	private Kahoot kahoot;
 
-	@Column(name = "AdminId") // one to many
-	private int adminId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "AdminId", nullable = false)
+	private Admin admin;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "contest")
+	private List<Participant> participants;
+
+	public List<Participant> getParticipants() {
+		return participants;
+	}
+
+	public void setParticipants(List<Participant> participants) {
+		this.participants = participants;
+	}
 
 	public Contest() {
 		super();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -34,20 +54,24 @@ public class Contest {
 		this.id = id;
 	}
 
-	public int getKahootId() {
-		return kahootId;
+	public Kahoot getKahoot() {
+		return kahoot;
 	}
 
-	public void setKahootId(int kahootId) {
-		this.kahootId = kahootId;
+	public void setKahoot(Kahoot kahoot) {
+		this.kahoot = kahoot;
 	}
 
-	public int getAdminId() {
-		return adminId;
+	public Admin getAdmin() {
+		return admin;
 	}
 
-	public void setAdminId(int adminId) {
-		this.adminId = adminId;
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

@@ -1,10 +1,17 @@
 package bbdd.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,14 +23,26 @@ public class Questions {
 	@Column(name = "Id")
 	private int id;
 
-	@Column(name = "KahootId")
-	private int kahootId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "KahootId", nullable = false)
+	private Kahoot kahoot;
 
 	@Column(name = "Question")
 	private String question;
 
 	@Column(name = "Time")
 	private int time;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "questions")
+	private List<Answers> answers;
+
+	public List<Answers> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answers> answers) {
+		this.answers = answers;
+	}
 
 	public Questions() {
 		super();
@@ -37,12 +56,12 @@ public class Questions {
 		this.id = id;
 	}
 
-	public int getKahootId() {
-		return kahootId;
+	public Kahoot getKahoot() {
+		return kahoot;
 	}
 
-	public void setKahootId(int kahootId) {
-		this.kahootId = kahootId;
+	public void setKahoot(Kahoot kahoot) {
+		this.kahoot = kahoot;
 	}
 
 	public String getQuestion() {

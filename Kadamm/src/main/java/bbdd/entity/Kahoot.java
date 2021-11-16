@@ -1,10 +1,17 @@
 package bbdd.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,8 +26,15 @@ public class Kahoot {
 	@Column(name = "Name")
 	private String Name;
 
-	@Column(name = "AdminName")
-	private String AdminName;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "AdminName", nullable = false)
+	private Admin admin;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kahoot")
+	private List<Contest> contests;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "kahoot")
+	private List<Questions> questions;
 
 	public Kahoot() {
 		super();
@@ -42,12 +56,20 @@ public class Kahoot {
 		Name = name;
 	}
 
-	public String getAdminName() {
-		return AdminName;
+	public Admin getAdminName() {
+		return admin;
 	}
 
-	public void setAdminName(String adminName) {
-		AdminName = adminName;
+	public void setAdminName(Admin adminName) {
+		admin = adminName;
+	}
+
+	public List<Contest> getContests() {
+		return contests;
+	}
+
+	public void setContests(List<Contest> contests) {
+		this.contests = contests;
 	}
 
 }

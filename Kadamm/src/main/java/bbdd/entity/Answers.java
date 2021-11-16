@@ -2,9 +2,12 @@ package bbdd.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +19,9 @@ public class Answers {
 	@Column(name = "Id")
 	private int id;
 
-	@Column(name = "QuestionId")
-	private int questionId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "QuestionId", nullable = false)
+	private Questions questions;
 
 	@Column(name = "Answer")
 	private String answer;
@@ -25,9 +29,22 @@ public class Answers {
 	@Column(name = "Correct")
 	private boolean correct;
 
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinTable(name = "participant_answers", joinColumns = {
+//			@JoinColumn(name = "participant_id") }, inverseJoinColumns = { @JoinColumn(name = "answer_id") })
+//	private List<Participant> participants;
+
 	public Answers() {
 		super();
 	}
+
+//	public List<Participant> getParticipants() {
+//		return participants;
+//	}
+//
+//	public void setParticipants(List<Participant> participants) {
+//		this.participants = participants;
+//	}
 
 	public int getId() {
 		return id;
@@ -37,12 +54,12 @@ public class Answers {
 		this.id = id;
 	}
 
-	public int getQuestionId() {
-		return questionId;
+	public Questions getQuestions() {
+		return questions;
 	}
 
-	public void setQuestionId(int questionId) {
-		this.questionId = questionId;
+	public void setQuestions(Questions questions) {
+		this.questions = questions;
 	}
 
 	public String getAnswer() {
