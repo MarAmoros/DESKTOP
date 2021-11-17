@@ -3,9 +3,9 @@
 	<Preguntas>
 		<Idioma>Español</Idioma>
 		<Tipo>ola</Tipo>
-		<Countdown>5</Countdown>
 		<Timeout>30</Timeout>
 		<MaxPreguntas>15</MaxPreguntas>
+		<CountDown>10</CountDown>
 		<Ruta>"C:\MatadmePorfavor"</Ruta>
 	</Preguntas>
 </Kahoot>

@@ -1,7 +1,6 @@
 package login;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -35,18 +34,18 @@ public class LoginFrame extends JFrame {
 //	/**
 //	 * Launch the application.
 //	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginFrame frame = new LoginFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					LoginFrame frame = new LoginFrame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -147,10 +146,8 @@ public class LoginFrame extends JFrame {
 		AdminDao userDao = new AdminDao();
 		Admin admin = null;
 		try {
-			admin = userDao.getAdmins().stream()
-					.filter(adminTemp -> passwordField.getText().equals(adminTemp.getPassword())
-							&& usernameField.getText().equals(adminTemp.getName()))
-					.findAny().get();
+			admin = userDao.getAdmins().stream().filter(adminTemp -> passwordField.getText().equals(adminTemp.getPassword())
+					&& usernameField.getText().equals(adminTemp.getName())).findAny().get();
 		} catch (NoSuchElementException e2) {
 			ErrorHandler noSuchElement = new ErrorHandler("LOGIN FAILURE ",
 					"The username or password is incorrect. Please try again");
