@@ -19,9 +19,17 @@ import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
+import com.example.kadamm.TestServer;
+
+import exceptions.ErrorHandler;
+
+import javax.swing.JList;
+
 public class KadammExplorer extends JFrame {
 
 	private JPanel contentPane;
+	private String [] kadamms = {"Kadamm 1", "Kadamm 2", "Kadamm 3"};
+	JList kadammsList;
 
 	/**
 	 * Launch the application.
@@ -61,10 +69,18 @@ public class KadammExplorer extends JFrame {
 		showDetailsButton.setForeground(new Color(255, 255, 255));
 		showDetailsButton.setBackground(new Color(102, 0, 204));
 
-		JButton PlayButton = new JButton("PLAY");
-		PlayButton.setBackground(new Color(102, 0, 204));
-		PlayButton.setForeground(new Color(255, 255, 255));
-		PlayButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		JButton playButton = new JButton("PLAY");
+		playButton.setBackground(new Color(102, 0, 204));
+		playButton.setForeground(new Color(255, 255, 255));
+		playButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		playButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				play();
+				
+			}
+		});
 
 		JButton createKahootButton = new JButton("Create Kahoot");
 		createKahootButton.setBackground(new Color(102, 0, 204));
@@ -120,7 +136,7 @@ public class KadammExplorer extends JFrame {
 												.addGap(101).addComponent(createKahootButton, GroupLayout.DEFAULT_SIZE,
 														141, Short.MAX_VALUE))))
 						.addGroup(gl_contentPane.createSequentialGroup().addGap(182)
-								.addComponent(PlayButton, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE).addGap(121)))
+								.addComponent(playButton, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE).addGap(121)))
 				.addGap(110)
 				.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(gl_contentPane
 						.createSequentialGroup()
@@ -166,11 +182,16 @@ public class KadammExplorer extends JFrame {
 										GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(PlayButton,
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(playButton,
 												GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPane.createSequentialGroup().addGap(18)
 										.addComponent(btnNewButton_2_2, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
 						.addGap(39)));
+		
+		kadammsList = new JList(kadamms);
+		kadammsList.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		scrollPane.setViewportView(kadammsList);
 
 		JTextArea selectedTopicsTextArea = new JTextArea();
 		selectedTopicsTextArea.setEditable(false);
@@ -179,10 +200,6 @@ public class KadammExplorer extends JFrame {
 		JTextArea topicsTextArea = new JTextArea();
 		topicsTextArea.setEditable(false);
 		scrollPane_1.setViewportView(topicsTextArea);
-
-		JTextArea kahootsTextArea = new JTextArea();
-		kahootsTextArea.setEditable(false);
-		scrollPane.setViewportView(kahootsTextArea);
 		contentPane.setLayout(gl_contentPane);
 	}
 	
@@ -191,5 +208,20 @@ public class KadammExplorer extends JFrame {
 		CreateNewKadamm createNewKadammFrame = new CreateNewKadamm();
 		createNewKadammFrame.setVisible(true);
 	}
-
+	
+	private void play() {
+		Object kadamm = kadammsList.getSelectedValue();
+		
+		if (kadamm==null) {
+			
+			new ErrorHandler("Kahoot Not Selected", "You have to select one of kahoots to play it!").setVisible(true);
+			
+		}else {
+			dispose();
+			TestServer testServer = new TestServer(kadamm.toString());
+		}
+			
+		
+		
+	}
 }

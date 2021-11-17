@@ -25,9 +25,11 @@ import javax.swing.border.EmptyBorder;
 import com.example.kadamm.TestServer;
 
 import exceptions.ErrorHandler;
+import xml.NodosXML;
 
 public class WaitingRoom extends JFrame {
-
+	
+	public JTextArea connectedPlayersTxt;
 	String localhost = setLocalhost();
 	private JPanel contentPane;
 	private JPanel waitingroomPanel;
@@ -41,9 +43,7 @@ public class WaitingRoom extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WaitingRoom frame = new WaitingRoom();
-					frame.setVisible(true);
-					TestServer testServer = new TestServer();
+					WaitingRoom frame = new WaitingRoom("hola");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,7 +54,8 @@ public class WaitingRoom extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public WaitingRoom() {
+	public WaitingRoom(String name) {
+		setVisible(true);
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +70,7 @@ public class WaitingRoom extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblNewLabel = new JLabel("NOMBRE KAHOOT");
+		JLabel lblNewLabel = new JLabel(name);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 30));
@@ -99,12 +100,12 @@ public class WaitingRoom extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton.setBackground(new Color(255, 255, 255));
 
-		JTextArea connectedPlayersTxt = new JTextArea();
+		connectedPlayersTxt = new JTextArea();
+		connectedPlayersTxt.setEditable(false);
 		connectedPlayersTxt.setLineWrap(true);
 		connectedPlayersTxt.setForeground(new Color(0, 0, 0));
 		connectedPlayersTxt.setFont(new Font("Courier New", Font.BOLD, 18));
 		connectedPlayersTxt.setBackground(new Color(102, 0, 204));
-
 		countdownLabel.setForeground(Color.WHITE);
 		countdownLabel.setFont(new Font("Tahoma", Font.BOLD, 99));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -142,10 +143,12 @@ public class WaitingRoom extends JFrame {
 				.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addGap(52)));
 		contentPane.setLayout(gl_contentPane);
-
+		
+		
 		tm = new Timer(1000, new ActionListener() {
-			int i = 5;
 
+			NodosXML nodos = new NodosXML("config.xml");
+			int i = Integer.valueOf(nodos.CountDown.getTextContent());
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -172,5 +175,7 @@ public class WaitingRoom extends JFrame {
 		}
 		return localhost;
 	}
-
+	public void nuevoConcursante(String nick) {
+		connectedPlayersTxt.append(nick);
+	}
 }

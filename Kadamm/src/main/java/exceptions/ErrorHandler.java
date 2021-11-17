@@ -46,7 +46,7 @@ public class ErrorHandler extends JFrame {
 		setResizable(false);
 		setBackground(new Color(153, 0, 204));
 		setType(Type.POPUP);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 532, 232);
 		setLocationRelativeTo(null);
 		Image img = new ImageIcon(this.getClass().getResource("/icon_login.png")).getImage();
@@ -61,7 +61,6 @@ public class ErrorHandler extends JFrame {
 		okBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				
 			}
 		});
 		okBtn.setForeground(new Color(255, 255, 255));

@@ -1,15 +1,10 @@
 package bbdd.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,12 +21,6 @@ public class Admin {
 
 	@Column(name = "Password")
 	private String Password;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "admin")
-	private List<Contest> contests;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "admin")
-	private List<Kahoot> kahoots;
 
 	public Admin() {
 
@@ -64,22 +53,6 @@ public class Admin {
 
 	public void setPassword(String Password) {
 		this.Password = Password;
-	}
-
-	public List<Contest> getContests() {
-		return contests;
-	}
-
-	public void setContests(List<Contest> contests) {
-		this.contests = contests;
-	}
-
-	public List<Kahoot> getKahoots() {
-		return kahoots;
-	}
-
-	public void setKahoots(List<Kahoot> kahoots) {
-		this.kahoots = kahoots;
 	}
 
 	@Override
